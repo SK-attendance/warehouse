@@ -56,6 +56,7 @@
 
   /* shelf grid */
   .shelf-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+  #shelfList{display:block;}
   .shelf-card{
     background:var(--card);border:1px solid var(--steel-light);border-radius:10px;
     box-shadow:var(--shadow); overflow:hidden;
@@ -201,6 +202,10 @@
   .row-cap-row{display:flex;align-items:center;gap:8px;}
   .row-cap-row .rlabel{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--steel);width:52px;flex:none;}
   .row-cap-row input{flex:1;padding:8px 10px;border:1px solid var(--steel-light);border-radius:7px;font-size:13px;}
+  .floorplan-zone{cursor:pointer;}
+  .floorplan-zone rect{transition:opacity .12s ease;}
+  .floorplan-zone:hover rect{opacity:.8;}
+  .floorplan-zone text{pointer-events:none;font-weight:600;}
   .aisle-header{
     font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
     font-size:15px;margin:26px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--steel-light);
@@ -247,11 +252,75 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" data-tab="shelves">貨架</button>
+    <button class="tab-btn active" data-tab="floorplan">平面圖</button>
+    <button class="tab-btn" data-tab="shelves">貨架</button>
     <button class="tab-btn" data-tab="shoes">鞋款庫</button>
   </div>
 
-  <div class="panel active" id="panel-shelves">
+  <div class="panel active" id="panel-floorplan">
+    <p class="hint" style="margin:0 0 14px;">撳一下平面圖入面任何一排，會直接跳去嗰排嘅貨架</p>
+    <div style="background:var(--card);border:1px solid var(--steel-light);border-radius:10px;padding:12px;box-shadow:var(--shadow);overflow-x:auto;">
+      <svg viewBox="0 0 960 550" style="width:100%;height:auto;min-width:640px;display:block;font-family:'IBM Plex Mono',monospace;">
+        <!-- 排1 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(1)">
+          <rect x="473" y="7" width="464" height="68" fill="#1C2128" stroke="#0d1013" stroke-width="1"/>
+          <text x="705" y="45" text-anchor="middle" fill="#fff" font-size="16">1</text>
+        </g>
+        <!-- 排2 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(2)">
+          <rect x="473" y="76" width="464" height="57" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="705" y="109" text-anchor="middle" fill="#fff" font-size="16">2</text>
+        </g>
+        <!-- 排3 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(3)">
+          <rect x="473" y="133" width="464" height="54" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="705" y="164" text-anchor="middle" fill="#fff" font-size="16">3</text>
+        </g>
+        <!-- 排4 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(4)">
+          <rect x="473" y="202" width="464" height="55" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="705" y="234" text-anchor="middle" fill="#fff" font-size="16">4</text>
+        </g>
+        <!-- 排5 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(5)">
+          <rect x="473" y="257" width="464" height="56" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="705" y="289" text-anchor="middle" fill="#fff" font-size="16">5</text>
+        </g>
+        <!-- 排6 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(6)">
+          <rect x="473" y="326" width="464" height="54" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="705" y="357" text-anchor="middle" fill="#fff" font-size="16">6</text>
+        </g>
+        <!-- 排7 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(7)">
+          <rect x="473" y="380" width="464" height="55" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="705" y="412" text-anchor="middle" fill="#fff" font-size="16">7</text>
+        </g>
+        <!-- 排8 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(8)">
+          <rect x="213" y="455" width="724" height="62" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="575" y="491" text-anchor="middle" fill="#fff" font-size="16">8</text>
+        </g>
+        <!-- 排9 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(9)">
+          <rect x="421" y="326" width="44" height="109" fill="#1C2128" stroke="#0d1013" stroke-width="1"/>
+          <text x="443" y="384" text-anchor="middle" fill="#fff" font-size="16">9</text>
+        </g>
+        <!-- 排10 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(10)">
+          <rect x="160" y="363" width="146" height="64" fill="#8A8F98" stroke="#5c6067" stroke-width="1"/>
+          <text x="233" y="399" text-anchor="middle" fill="#fff" font-size="16">10</text>
+        </g>
+        <!-- 排11 -->
+        <g class="floorplan-zone" onclick="jumpToAisle(11)">
+          <rect x="5" y="363" width="148" height="64" fill="#3B6EA5" stroke="#274a70" stroke-width="1"/>
+          <text x="79" y="399" text-anchor="middle" fill="#fff" font-size="16">11</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-shelves">
     <div class="fab-row">
       <button class="btn btn-primary" onclick="openShelfModal()">+ 新增貨架</button>
       <button class="btn btn-ghost" id="moveModeBtn" onclick="toggleMoveMode()">🖐 搬貨模式</button>
@@ -638,36 +707,39 @@ function ensureShoes(wanted){
 }
 
 const AISLE1_SHELVES = [
-  { aisle:1, name:'貨架1', rows:3, cols:2, rowCaps:[20,20,20] },
-  { aisle:1, name:'貨架2', rows:4, cols:1, rowCaps:[6,11,11,11] },
-  { aisle:1, name:'貨架3', rows:3, cols:4, rowCaps:[15,23,23] }
+  { aisle:1, name:'貨架1', rows:3, cols:2, rowCaps:[20,20,20], headColor:'#1C2128' },
+  { aisle:1, name:'貨架2', rows:4, cols:1, rowCaps:[6,11,11,11], headColor:'#1C2128' },
+  { aisle:1, name:'貨架3', rows:3, cols:4, rowCaps:[15,23,23], headColor:'#1C2128' }
 ];
 const AISLE2_SHELVES = [
-  { aisle:2, name:'貨架1', rows:3, cols:5, rowCaps:[15,25,30] }
+  { aisle:2, name:'貨架1', rows:3, cols:5, rowCaps:[15,25,30], headColor:'#3B6EA5' }
 ];
 const AISLE3_SHELVES = [
-  { aisle:3, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:3, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const AISLE4_SHELVES = [
-  { aisle:4, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:4, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const AISLE5_SHELVES = [
-  { aisle:5, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:5, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const AISLE6_SHELVES = [
-  { aisle:6, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:6, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const AISLE7_SHELVES = [
-  { aisle:7, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:7, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const AISLE8_SHELVES = [
-  { aisle:8, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:8, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const AISLE9_SHELVES = [
-  { aisle:9, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:9, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#1C2128' }
 ];
 const AISLE10_SHELVES = [
-  { aisle:10, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36] }
+  { aisle:10, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#8A8F98' }
+];
+const AISLE11_SHELVES = [
+  { aisle:11, name:'貨架1', rows:3, cols:5, rowCaps:[18,30,36], headColor:'#3B6EA5' }
 ];
 const storageAPI = {
   mode: 'unknown',
@@ -699,7 +771,7 @@ async function loadData(){
     }catch(e){ /* 未有舊資料，用default */ }
     const allSeedShelves = [].concat(
       AISLE1_SHELVES, AISLE2_SHELVES, AISLE3_SHELVES, AISLE4_SHELVES, AISLE5_SHELVES,
-      AISLE6_SHELVES, AISLE7_SHELVES, AISLE8_SHELVES, AISLE9_SHELVES, AISLE10_SHELVES
+      AISLE6_SHELVES, AISLE7_SHELVES, AISLE8_SHELVES, AISLE9_SHELVES, AISLE10_SHELVES, AISLE11_SHELVES
     );
     const changedShelves = ensureShelves(allSeedShelves);
     const changedShoes = ensureShoes(SEED_SHOES);
@@ -794,6 +866,7 @@ function renderShelves(){
   aisles.forEach(aisleNo=>{
     const header = document.createElement('div');
     header.className = 'aisle-header';
+    header.dataset.aisle = aisleNo;
     header.innerHTML = `<span class="n">第${aisleNo}排</span>`;
     list.appendChild(header);
 
@@ -1227,6 +1300,20 @@ function jumpToSlot(shelfId, slotKey){
     const el = document.querySelector(`.slot[data-shelf-id="${shelfId}"][data-slot-key="${slotKey}"]`);
     if(el){
       el.scrollIntoView({behavior:'smooth', block:'center'});
+      el.classList.add('highlight-flash');
+      setTimeout(()=>el.classList.remove('highlight-flash'), 1500);
+    }
+  });
+}
+function jumpToAisle(aisleNo){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('.tab-btn[data-tab="shelves"]').classList.add('active');
+  document.getElementById('panel-shelves').classList.add('active');
+  requestAnimationFrame(()=>{
+    const el = document.querySelector(`.aisle-header[data-aisle="${aisleNo}"]`);
+    if(el){
+      el.scrollIntoView({behavior:'smooth', block:'start'});
       el.classList.add('highlight-flash');
       setTimeout(()=>el.classList.remove('highlight-flash'), 1500);
     }
